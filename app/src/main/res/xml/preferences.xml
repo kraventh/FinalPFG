@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <PreferenceScreen android:title="Permisos"
+        android:icon="@mipmap/permission"
+        android:summary="Verificar, activar y desactivarlos"
+        >
+
+        <PreferenceScreen android:title="Notificaciones"
+            android:summary="Permite activar/desactivar el acceso de la aplicación">
+            <intent android:action="android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS" />
+        </PreferenceScreen>
+
+    </PreferenceScreen>
+
+    <PreferenceScreen android:title="Bluetooth"
+        android:icon="@mipmap/bluetooth"
+        android:summary="Disponible. Desconectado"
+        >
+
+        <PreferenceScreen android:title="Visibilidad"
+            android:summary="No visible">
+            <intent android:action="android.settings.ACTION_BLUETOOTH_SETTINGS" />
+        </PreferenceScreen>
+
+
+
+    </PreferenceScreen>
+
+        <PreferenceScreen android:title="App no seleccionada"
+            android:icon="@mipmap/app"
+            android:key="app_monitorizada"
+            android:summary="No se monitoriza ninguna aplicación">
+            <EditTextPreference
+                android:defaultValue="Ninguna"
+                android:editable="false"
+                android:key="app_monitorizada_titulo"
+                android:title="Título"
+                android:visibility="gone" />
+            <EditTextPreference
+                android:defaultValue="No hay aplicación seleccionada"
+                android:editable="false"
+                android:key="app_monitorizada_paquete"
+                android:title="Paquete"
+                android:visibility="gone" />
+        </PreferenceScreen>
+
+    <PreferenceScreen android:title="Configuración"
+        android:icon="@mipmap/settings"
+        android:summary="Display, Notificaciones, GPS...">
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="habilitar_historico_notificaciones"
+            android:summary="Habilitado por defecto"
+            android:title="Histórico de notificaciones" />
+
+        <Preference
+            android:dependency="habilitar_historico_notificaciones"
+            android:key="limpiar_historico_notif"
+            android:summary="Pulsa para vaciar"
+            android:title="Caché de notificaciones" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="mostrar_notif_desestimadas"
+            android:summary="O sólo Aplicacion Monitorizada"
+            android:title="Mostrar todas"
+            />
+
+    </PreferenceScreen>
+
+    <EditTextPreference
+        android:title="Guardar LOG"
+        android:defaultValue="pfg.log"
+        android:icon="@mipmap/savelog"
+        android:positiveButtonText="Guardar"
+        android:negativeButtonText="Cancelar">
+
+    </EditTextPreference>
+
+
+
+
+</PreferenceScreen>
