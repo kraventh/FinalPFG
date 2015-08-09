@@ -21,8 +21,6 @@
             android:summary="No visible">
         </Preference>
 
-
-
     </PreferenceScreen>
 
         <PreferenceScreen android:title="App no seleccionada"
@@ -67,18 +65,14 @@
 
     </PreferenceScreen>
 
-    <EditTextPreference
-        android:key = "save_log"
-        android:title="Guardar LOG"
-        android:defaultValue="pfg.log"
-        android:icon="@mipmap/savelog"
-        android:dialogTitle="Nombre del archivo"
-        android:positiveButtonText="Guardar"
-        android:negativeButtonText="Cancelar">
-
-    </EditTextPreference>
-
-
-
+        <EditTextPreference
+            android:key = "save_log"
+            android:title="Guardar LOG"
+            android:defaultValue="pfg.log"
+            android:icon="@mipmap/savelog"
+            android:dialogTitle="Nombre del archivo"
+            android:positiveButtonText="Guardar"
+            android:negativeButtonText="Cancelar">
+        </EditTextPreference>
 
 </PreferenceScreen>

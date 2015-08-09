@@ -3,7 +3,12 @@ package es.dlacalle.finalpfg;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.preference.ListPreference;
+import android.preference.Preference;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -12,95 +17,49 @@ import android.widget.ViewFlipper;
 
 
 public class MainActivity extends Activity {
-
-    private float x1, x2, lastX;
-    static final int MIN_DISTANCE = 150;
-    private ViewFlipper viewFlipper;
-
+    public BluetoothAdapter mBluetoothAdapter;
+    public int REQUEST_ENABLE_BT = 1;
+    public Preference.OnPreferenceClickListener prefClickListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //viewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper);
+
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        prefClickListener = new Preference.OnPreferenceClickListener() {
+
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                if(preference.getKey().equals("bt_category_key")){
+                    if (!mBluetoothAdapter.isEnabled()) {
+                        Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                        startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+                    }
+                }
+
+                return true;    //Persist new value
+            }
+        };
+
+        if(mBluetoothAdapter==null){
+            Toast.makeText(this, "Bluetooth no encontrado", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 
-    // Method to handle touch event like left to right swap and right to left swap
-//    public boolean onTouchEvent(MotionEvent touchevent)
-//    {
-//        switch (touchevent.getAction())
-//        {
-//            // when user first touches the screen to swap
-//            case MotionEvent.ACTION_DOWN:
-//            {
-//                lastX = touchevent.getX();
-//                break;
-//            }
-//            case MotionEvent.ACTION_UP:
-//            {
-//                float currentX = touchevent.getX();
-//
-//                // if left to right swipe on screen
-//                if (lastX < currentX && Math.abs(lastX-currentX)>150 )
-//                {
-//                    // If no more View/Child to flip
-//                    if (viewFlipper.getDisplayedChild() == 0)
-//                        break;
-//
-//                    // set the required Animation type to ViewFlipper
-//                    // The Next screen will come in form Left and current Screen will go OUT from Right
-//                    viewFlipper.setInAnimation(this, R.anim.in_from_left);
-//                    viewFlipper.setOutAnimation(this, R.anim.out_to_right);
-//                    // Show the next Screen
-//                    viewFlipper.showNext();
-//                }
-//
-//                // if right to left swipe on screen
-//                if (lastX > currentX && Math.abs(lastX-currentX)>150)
-//                {
-//                    if (viewFlipper.getDisplayedChild() == 1)
-//                        break;
-//                    // set the required Animation type to ViewFlipper
-//                    // The Next screen will come in form Right and current Screen will go OUT from Left
-//                    viewFlipper.setInAnimation(this, R.anim.in_from_right);
-//                    viewFlipper.setOutAnimation(this, R.anim.out_to_left);
-//                    // Show The Previous Screen
-//                    viewFlipper.showPrevious();
-//                }
-//                break;
-//            }
-//        }
-//        return false;
-//    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == REQUEST_ENABLE_BT) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
 
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        switch (event.getAction()) {
-//            case MotionEvent.ACTION_DOWN:
-//                x1 = event.getX();
-//                break;
-//            case MotionEvent.ACTION_UP:
-//                x2 = event.getX();
-//                float deltaX = x2 - x1;
-//
-//                if (Math.abs(deltaX) > MIN_DISTANCE) {
-//                    // Left to Right swipe action
-//                    if (x2 > x1) {
-//                        Toast.makeText(this, "Left to Right swipe [Next]", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    // Right to left swipe action
-//                    else {
-//                        Toast.makeText(this, "Right to Left swipe [Previous]", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                } else {
-//                    // consider as something else - a screen tap for example
-//                }
-//                break;
-//        }
-//        return super.onTouchEvent(event);
-//    }
+            }
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -3,14 +3,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/iv_preview"
-        android:src="@drawable/lg"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:baselineAlignBottom="false"
-        android:contentDescription="@string/string_preview" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_preview"
+            android:src="@drawable/lg"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:baselineAlignBottom="false"
+            android:contentDescription="@string/string_preview" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_log_text"
+            android:id="@+id/tv_log"
+            android:textIsSelectable="true"
+            android:maxLines="10"
+            android:scrollbars="vertical"
+            android:visibility="invisible" />
+
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/fragment_container"
