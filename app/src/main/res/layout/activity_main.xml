@@ -12,9 +12,15 @@
         android:baselineAlignBottom="false"
         android:contentDescription="@string/string_preview" />
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" >
+        <fragment android:name="es.dlacalle.finalpfg.SettingsFragment"
+            android:id="@+id/settings_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+        </FrameLayout>
 
 </LinearLayout>

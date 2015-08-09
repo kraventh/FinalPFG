@@ -6,4 +6,14 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="string_preview">Preview</string>
+    <string name="tv_logwindow">Log de notificaciones capturadas
+    Aunque en estos momentos la vulnerabilidad descubierta sólo afecta a través de un anuncio que se muestra en un sitio de noticias ruso, el exploit encontrado podría robar archivos y subirlos a un servidor de Ucrania sin que el usuario se diese cuenta.
+
+Desde Mozilla y a través de su blog han advertido de un exploit que se da tanto en JavaScript como en el visor de PDF de Firefox, capaz de inyectar un script que puede buscar y cargar archivos locales. Según explican, la vulnerabilidad permite cargar las páginas con el exploit y robar archivos en segundo plano con suma facilidad.
+
+Mientras que en Windows parece que el ataque se centra específicamente en archivos de configuración de FTP y en la información de la cuenta, en Linux el ataque parece más vulnerable, incluyendo las configuraciones globales y directorios de usuario. Los usuarios de Mac parece que, al menos de momento, no están en peligro, aunque no se descarta que el ataque descubierto finalmente también les incluya.
+
+Desde Mozilla aseguran que el ataque no parece generalizado, centrándose únicamente en una red de publicidad rusa, aunque advierten que es probable que sea sólo cuestión de tiempo que se extienda a medida que más personas lo descubran.
+
+Por tanto, todas las versiones de Firefox se ven afectadas y Mozilla urge a los usuarios para protegerse contra el exploit a una actualización inmediata a la versión 39.0.3.</string>
 </resources>

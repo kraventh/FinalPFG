@@ -3,27 +3,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
 
-    <PreferenceScreen android:title="Permisos"
-        android:icon="@mipmap/permission"
-        android:summary="Verificar, activar y desactivarlos"
-        >
+    <Preference android:key="permiso_notificaciones_category_key"
+    android:title="Permiso Notificaciones"
+    android:icon="@mipmap/permission"
+    android:summary="Activar/desactivar el acceso"
+    >
+        <intent android:action="android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS" />
+    </Preference>
 
-        <PreferenceScreen android:title="Notificaciones"
-            android:summary="Permite activar/desactivar el acceso de la aplicación">
-            <intent android:action="android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS" />
-        </PreferenceScreen>
-
-    </PreferenceScreen>
-
-    <PreferenceScreen android:title="Bluetooth"
+    <PreferenceScreen android:key="bluetooth_category_key"
+        android:title="Bluetooth"
         android:icon="@mipmap/bluetooth"
         android:summary="Disponible. Desconectado"
         >
 
-        <PreferenceScreen android:title="Visibilidad"
+        <Preference android:title="Visibilidad"
             android:summary="No visible">
-            <intent android:action="android.settings.ACTION_BLUETOOTH_SETTINGS" />
-        </PreferenceScreen>
+        </Preference>
 
 
 
