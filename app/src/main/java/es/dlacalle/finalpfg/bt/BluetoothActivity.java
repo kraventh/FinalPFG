@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import es.dlacalle.finalpfg.R;
+import es.dlacalle.finalpfg.adapters.BTDeviceAdapter;
 
 /**
  * Created by Pedro on 09/08/2015.
@@ -31,7 +32,7 @@ public class BluetoothActivity extends AppCompatActivity {
     private BluetoothAdapter BA;
     private Set<BluetoothDevice> pairedDevices;
     ListView lv;
-    Boolean BT_AVAILABLE = false;
+    Boolean BT_AVAILABLE = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,15 +81,20 @@ public class BluetoothActivity extends AppCompatActivity {
     public void list(View v) {
         if (BT_AVAILABLE) {
             pairedDevices = BA.getBondedDevices();
-            //ArrayList<BTDevice> listadoDispositivosBT = new ArrayList<BTDevice>();
-            ArrayList<String> list = new ArrayList<>();
 
+            //Listado estándar
+//            ArrayList<String> list = new ArrayList<>();
+//
+//            for (BluetoothDevice bt : pairedDevices)
+//                list.add(bt.getName() + '\n' + bt.getAddress());
+//            final ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
+
+            //Listado personalizado
+            ArrayList<BTDevice> listadoDispositivosBT = new ArrayList<BTDevice>();
             for (BluetoothDevice bt : pairedDevices)
-                list.add(bt.getName() + '\n' + bt.getAddress());
-            //listadoDispositivosBT.add(new BTDevice(bt.getName(), bt.getAddress(), bt.getBluetoothClass().getMajorDeviceClass()));
+            listadoDispositivosBT.add(new BTDevice(bt.getName(), bt.getAddress(), bt.getBluetoothClass().getMajorDeviceClass()));
+            final BTDeviceAdapter adapter = new BTDeviceAdapter(this, listadoDispositivosBT);
 
-            //final BTDeviceAdapter adapter = new BTDeviceAdapter(this, listadoDispositivosBT);
-            final ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
             lv.setAdapter(adapter);
         } else Toast.makeText(this.getBaseContext(), "Bluetooth not available", Toast.LENGTH_SHORT).show();
     }
@@ -96,7 +102,7 @@ public class BluetoothActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_bluetooth, menu);
+        //getMenuInflater().inflate(R.menu.menu_bluetooth, menu);
         return true;
     }
 

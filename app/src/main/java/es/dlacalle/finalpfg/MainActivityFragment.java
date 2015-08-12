@@ -1,22 +1,15 @@
 package es.dlacalle.finalpfg;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceScreen;
-import android.support.annotation.NonNull;
 import android.widget.Toast;
-
-import java.util.List;
 
 
 /**
  * Fragment para preferencias y configuración
  */
-public class SettingsFragment extends PreferenceFragment {
+public class MainActivityFragment extends PreferenceFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState){

@@ -22,7 +22,14 @@
         <activity
             android:name=".bt.BluetoothActivity"
             android:label="@string/bluetooth_text"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ConfigActivity"
+            android:label="@string/title_activity_config"
             android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="es.dlacalle.finalpfg.MainActivity" />
         </activity>
     </application>
 

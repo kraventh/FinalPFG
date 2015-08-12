@@ -1,76 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <Preference android:key="permiso_notificaciones_category_key"
-    android:title="Permiso Notificaciones"
-    android:icon="@mipmap/permission"
-    android:summary="Activar/desactivar el acceso"
-    >
+    <Preference
+        android:icon="@mipmap/permission"
+        android:key="permiso_notificaciones_category_key"
+        android:summary="Activar/desactivar el acceso"
+        android:title="Permiso Notificaciones">
         <intent android:action="android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS" />
     </Preference>
 
-    <Preference android:key="bluetooth_category_key"
-        android:title="Bluetooth"
+    <Preference
         android:icon="@mipmap/bluetooth"
+        android:key="bluetooth_category_key"
         android:summary="Disponible. Desconectado"
-        >
-        <intent android:targetPackage="es.dlacalle.finalpfg"
-            android:targetClass="es.dlacalle.finalpfg.BluetoothActivity"/>
+        android:title="Bluetooth">
+        <intent
+            android:targetClass="es.dlacalle.finalpfg.bt.BluetoothActivity"
+            android:targetPackage="es.dlacalle.finalpfg" />
 
     </Preference>
 
-        <PreferenceScreen android:title="App no seleccionada"
-            android:icon="@mipmap/app"
-            android:key="app_monitorizada"
-            android:summary="No se monitoriza ninguna aplicación">
-            <EditTextPreference
-                android:defaultValue="Ninguna"
-                android:editable="false"
-                android:key="app_monitorizada_titulo"
-                android:title="Título"
-                android:visibility="gone" />
-            <EditTextPreference
-                android:defaultValue="No hay aplicación seleccionada"
-                android:editable="false"
-                android:key="app_monitorizada_paquete"
-                android:title="Paquete"
-                android:visibility="gone" />
-        </PreferenceScreen>
+    <PreferenceScreen
+        android:icon="@mipmap/app"
+        android:key="app_monitorizada"
+        android:summary="No se monitoriza ninguna aplicación"
+        android:title="App no seleccionada">
 
-    <PreferenceScreen android:title="Configuración"
+        <EditTextPreference
+            android:defaultValue="Ninguna"
+            android:editable="false"
+            android:key="app_monitorizada_titulo"
+            android:title="Título"
+            android:visibility="gone" />
+        <EditTextPreference
+            android:defaultValue="No hay aplicación seleccionada"
+            android:editable="false"
+            android:key="app_monitorizada_paquete"
+            android:title="Paquete"
+            android:visibility="gone" />
+    </PreferenceScreen>
+
+    <PreferenceScreen
         android:icon="@mipmap/settings"
-        android:summary="Display, Notificaciones, GPS...">
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="habilitar_historico_notificaciones"
-            android:summary="Habilitado por defecto"
-            android:title="Histórico de notificaciones" />
-
-        <Preference
-            android:dependency="habilitar_historico_notificaciones"
-            android:key="limpiar_historico_notif"
-            android:summary="Pulsa para vaciar"
-            android:title="Caché de notificaciones" />
-
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="mostrar_notif_desestimadas"
-            android:summary="O sólo Aplicacion Monitorizada"
-            android:title="Mostrar todas"
-            />
+        android:summary="Display, Notificaciones, GPS..."
+        android:title="Configuración">
+        <intent
+            android:targetClass="es.dlacalle.finalpfg.ConfigActivity"
+            android:targetPackage="es.dlacalle.finalpfg" />
 
     </PreferenceScreen>
 
-        <EditTextPreference
-            android:key = "save_log"
-            android:title="Guardar LOG"
-            android:defaultValue="pfg.log"
-            android:icon="@mipmap/savelog"
-            android:dialogTitle="Nombre del archivo"
-            android:positiveButtonText="Guardar"
-            android:negativeButtonText="Cancelar">
-        </EditTextPreference>
+    <EditTextPreference
+        android:defaultValue="pfg.log"
+        android:dialogTitle="Nombre del archivo"
+        android:icon="@mipmap/savelog"
+        android:key="save_log"
+        android:negativeButtonText="Cancelar"
+        android:positiveButtonText="Guardar"
+        android:title="Guardar LOG"/>
 
 </PreferenceScreen>

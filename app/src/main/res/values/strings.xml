@@ -18,4 +18,5 @@
     <string name="text_iconobt">IconoBt</string>
     <string name="text_btdevicename">DeviceName</string>
     <string name="text_btdeviceaddress">DeviceAddress</string>
+    <string name="title_activity_config">ConfigActivity</string>
 </resources>
