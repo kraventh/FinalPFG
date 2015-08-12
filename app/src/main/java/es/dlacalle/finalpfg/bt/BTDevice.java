@@ -1,6 +1,8 @@
-package es.dlacalle.finalpfg;
+package es.dlacalle.finalpfg.bt;
 
 import android.bluetooth.BluetoothClass;
+
+import es.dlacalle.finalpfg.R;
 
 /**
  * Created by Pedro on 09/08/2015.
@@ -43,27 +45,27 @@ public class BTDevice {
     private int check(int type) {
         switch (type) {
             case BluetoothClass.Device.Major.AUDIO_VIDEO:
-                return android.R.drawable.stat_sys_headset;
+                return R.drawable.bt_generic_icon;
             case BluetoothClass.Device.Major.COMPUTER:
-                return android.R.drawable.stat_sys_headset;
+                return R.drawable.bt_generic_icon;
             case BluetoothClass.Device.Major.HEALTH:
-                return android.R.drawable.stat_sys_headset;
+                return R.drawable.bt_generic_icon;
             case BluetoothClass.Device.Major.IMAGING:
-                return android.R.drawable.stat_sys_headset;
+                return R.drawable.bt_generic_icon;
             case BluetoothClass.Device.Major.MISC:
-                return android.R.drawable.stat_sys_headset;
+                return R.drawable.bt_generic_icon;
             case BluetoothClass.Device.Major.NETWORKING:
-                return android.R.drawable.stat_sys_headset;
+                return R.drawable.bt_generic_icon;
             case BluetoothClass.Device.Major.PERIPHERAL:
-                return android.R.drawable.stat_sys_headset;
+                return R.drawable.bt_generic_icon;
             case BluetoothClass.Device.Major.PHONE:
-                return android.R.drawable.stat_sys_speakerphone;
+                return R.drawable.bt_generic_icon;
             case BluetoothClass.Device.Major.TOY:
-                return android.R.drawable.stat_sys_headset;
+                return R.drawable.bt_generic_icon;
             case BluetoothClass.Device.Major.UNCATEGORIZED:
-                return android.R.drawable.stat_sys_headset;
+                return R.drawable.bt_generic_icon;
             case BluetoothClass.Device.Major.WEARABLE:
-                return android.R.drawable.star_off;
+                return R.drawable.bt_generic_icon;
             default:
                 return android.R.drawable.stat_sys_warning;
         }

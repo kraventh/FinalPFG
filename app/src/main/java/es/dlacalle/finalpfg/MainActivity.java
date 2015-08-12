@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import es.dlacalle.finalpfg.bt.BluetoothActivity;
+
 
 public class MainActivity extends AppCompatActivity {
 

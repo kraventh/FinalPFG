@@ -1,4 +1,4 @@
-package es.dlacalle.finalpfg;
+package es.dlacalle.finalpfg.bt;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Set;
+
+import es.dlacalle.finalpfg.R;
 
 /**
  * Created by Pedro on 09/08/2015.

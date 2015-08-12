@@ -1,4 +1,4 @@
-package es.dlacalle.finalpfg;
+package es.dlacalle.finalpfg.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,9 +8,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
+
+import es.dlacalle.finalpfg.R;
+import es.dlacalle.finalpfg.bt.BTDevice;
 
 /**
  * Created by Pedro on 09/08/2015.
