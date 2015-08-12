@@ -1,0 +1,23 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:icon="@mipmap/settings"
+    android:summary="Display, Notificaciones, GPS..."
+    android:title="Configuración">
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="habilitar_historico_notificaciones"
+        android:summary="Habilitado por defecto"
+        android:title="Histórico de notificaciones" />
+
+    <Preference
+        android:dependency="habilitar_historico_notificaciones"
+        android:key="limpiar_historico_notif"
+        android:summary="Pulsa para vaciar"
+        android:title="Caché de notificaciones" />
+
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="mostrar_notif_desestimadas"
+        android:summary="O sólo Aplicacion Monitorizada"
+        android:title="Mostrar todas" />
+
+</PreferenceScreen>

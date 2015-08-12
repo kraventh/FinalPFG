@@ -1,11 +1,10 @@
 package es.dlacalle.finalpfg;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,7 +21,7 @@ import java.util.Set;
  * Created by Pedro on 09/08/2015.
  */
 
-public class BluetoothActivity extends Activity {
+public class BluetoothActivity extends AppCompatActivity {
 
     Button b3;
     int REQUEST_ENABLE_BT = 1;
@@ -30,6 +29,7 @@ public class BluetoothActivity extends Activity {
     private BluetoothAdapter BA;
     private Set<BluetoothDevice> pairedDevices;
     ListView lv;
+    Boolean BT_AVAILABLE = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,18 +41,27 @@ public class BluetoothActivity extends Activity {
         b3=(Button)findViewById(R.id.button3);
 
         BA = BluetoothAdapter.getDefaultAdapter();
+        if(BA==null) BT_AVAILABLE = false;
+
         lv = (ListView)findViewById(R.id.listView);
-        if(BA.isEnabled()) sw_btOnOff.setChecked(true);
+        if(BT_AVAILABLE)
+            if(BA.isEnabled())
+                sw_btOnOff.setChecked(true);
     }
 
     public void toggleBt (View v) {
-        if (sw_btOnOff.isChecked()) {
-            if (!BA.isEnabled()) {
-                Intent turnOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(turnOn, REQUEST_ENABLE_BT);
+        if(BT_AVAILABLE)
+            if (sw_btOnOff.isChecked()) {
+                if (!BA.isEnabled()) {
+                    Intent turnOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                    startActivityForResult(turnOn, REQUEST_ENABLE_BT);
+                }
+            } else {
+                BA.disable();
             }
-        } else {
-            BA.disable();
+        else {
+            sw_btOnOff.setChecked(false);
+            Toast.makeText(this.getBaseContext(), "Bluetooth not available", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -66,18 +75,20 @@ public class BluetoothActivity extends Activity {
         }
     }
 
-    public void list(View v){
-        pairedDevices = BA.getBondedDevices();
-        //ArrayList<BTDevice> listadoDispositivosBT = new ArrayList<BTDevice>();
-        ArrayList<String> list = new ArrayList<>();
+    public void list(View v) {
+        if (BT_AVAILABLE) {
+            pairedDevices = BA.getBondedDevices();
+            //ArrayList<BTDevice> listadoDispositivosBT = new ArrayList<BTDevice>();
+            ArrayList<String> list = new ArrayList<>();
 
-        for(BluetoothDevice bt : pairedDevices)
+            for (BluetoothDevice bt : pairedDevices)
                 list.add(bt.getName() + '\n' + bt.getAddress());
             //listadoDispositivosBT.add(new BTDevice(bt.getName(), bt.getAddress(), bt.getBluetoothClass().getMajorDeviceClass()));
 
-        //final BTDeviceAdapter adapter = new BTDeviceAdapter(this, listadoDispositivosBT);
-        final ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
-        lv.setAdapter(adapter);
+            //final BTDeviceAdapter adapter = new BTDeviceAdapter(this, listadoDispositivosBT);
+            final ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
+            lv.setAdapter(adapter);
+        } else Toast.makeText(this.getBaseContext(), "Bluetooth not available", Toast.LENGTH_SHORT).show();
     }
 
     @Override

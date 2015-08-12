@@ -11,17 +11,15 @@
         <intent android:action="android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS" />
     </Preference>
 
-    <PreferenceScreen android:key="bluetooth_category_key"
+    <Preference android:key="bluetooth_category_key"
         android:title="Bluetooth"
         android:icon="@mipmap/bluetooth"
         android:summary="Disponible. Desconectado"
         >
+        <intent android:targetPackage="es.dlacalle.finalpfg"
+            android:targetClass="es.dlacalle.finalpfg.BluetoothActivity"/>
 
-        <Preference android:title="Visibilidad"
-            android:summary="No visible">
-        </Preference>
-
-    </PreferenceScreen>
+    </Preference>
 
         <PreferenceScreen android:title="App no seleccionada"
             android:icon="@mipmap/app"
