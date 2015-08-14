@@ -18,5 +18,8 @@
     <string name="text_iconobt">IconoBt</string>
     <string name="text_btdevicename">DeviceName</string>
     <string name="text_btdeviceaddress">DeviceAddress</string>
-    <string name="title_activity_config">ConfigActivity</string>
+    <string name="title_activity_settings_app_default">App no seleccionada</string>
+    <string name="title_activity_settings_config">Configuración</string>
+    <string name="text_nuevos_dispositivos">Dispositivos encontrados:</string>
+    <string name="text_action_bt_buscar">Buscar dispositivos</string>
 </resources>

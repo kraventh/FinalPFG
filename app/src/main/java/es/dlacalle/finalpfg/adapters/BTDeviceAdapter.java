@@ -13,9 +13,6 @@ import java.util.ArrayList;
 import es.dlacalle.finalpfg.R;
 import es.dlacalle.finalpfg.bt.BTDevice;
 
-/**
- * Created by Pedro on 09/08/2015.
- */
 public class BTDeviceAdapter extends BaseAdapter {
 
     private ArrayList<BTDevice> listadoDispositivos;

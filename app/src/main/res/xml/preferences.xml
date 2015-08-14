@@ -25,19 +25,11 @@
         android:key="app_monitorizada"
         android:summary="No se monitoriza ninguna aplicación"
         android:title="App no seleccionada">
-
-        <EditTextPreference
-            android:defaultValue="Ninguna"
-            android:editable="false"
-            android:key="app_monitorizada_titulo"
-            android:title="Título"
-            android:visibility="gone" />
-        <EditTextPreference
-            android:defaultValue="No hay aplicación seleccionada"
-            android:editable="false"
-            android:key="app_monitorizada_paquete"
-            android:title="Paquete"
-            android:visibility="gone" />
+        <intent
+            android:targetClass="es.dlacalle.finalpfg.SettingsActivity"
+            android:targetPackage="es.dlacalle.finalpfg">
+            <extra android:name="setting" android:value="app" />
+        </intent>
     </PreferenceScreen>
 
     <PreferenceScreen
@@ -45,8 +37,10 @@
         android:summary="Display, Notificaciones, GPS..."
         android:title="Configuración">
         <intent
-            android:targetClass="es.dlacalle.finalpfg.ConfigActivity"
-            android:targetPackage="es.dlacalle.finalpfg" />
+            android:targetClass="es.dlacalle.finalpfg.SettingsActivity"
+            android:targetPackage="es.dlacalle.finalpfg">
+            <extra android:name="setting" android:value="config" />
+        </intent>
 
     </PreferenceScreen>
 

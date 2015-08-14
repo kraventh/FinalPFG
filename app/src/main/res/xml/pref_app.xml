@@ -7,12 +7,15 @@
         android:defaultValue="Ninguna"
         android:editable="false"
         android:key="app_monitorizada_titulo"
-        android:title="Título"
-        android:visibility="gone" />
+        android:title="Título" />
     <EditTextPreference
         android:defaultValue="No hay aplicación seleccionada"
         android:editable="false"
         android:key="app_monitorizada_paquete"
-        android:title="Paquete"
-        android:visibility="gone" />
+        android:title="Paquete" />
+    <EditTextPreference
+        android:defaultValue="whatsapp, maps"
+        android:key="app_filter"
+        android:title="Aplicaciones a filtrar" />
+
 </PreferenceScreen>
