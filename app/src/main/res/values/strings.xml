@@ -22,4 +22,8 @@
     <string name="title_activity_settings_config">Configuración</string>
     <string name="text_nuevos_dispositivos">Dispositivos encontrados:</string>
     <string name="text_action_bt_buscar">Buscar dispositivos</string>
+    <string name="title_connected_to">Conectado a</string>
+    <string name="title_connecting">Conectando...</string>
+    <string name="title_not_connected">No conectado</string>
+    <string name="tv_log_default">RealTime Log</string>
 </resources>

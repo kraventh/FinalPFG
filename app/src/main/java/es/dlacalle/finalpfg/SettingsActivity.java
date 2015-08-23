@@ -2,6 +2,7 @@ package es.dlacalle.finalpfg;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.v7.app.AppCompatActivity;
 
@@ -26,6 +27,7 @@ public class SettingsActivity extends AppCompatActivity {
                 getFragmentManager().beginTransaction()
                         .add(R.id.fragment_settings_container, new SettingsConfigFragment())
                         .commit();
+
             }
         }
     }

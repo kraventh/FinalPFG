@@ -1,9 +1,7 @@
-package es.dlacalle.finalpfg.bt;
+package es.dlacalle.finalpfg.connectivity;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothServerSocket;
-import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -13,18 +11,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.UUID;
 
 import es.dlacalle.finalpfg.R;
 import es.dlacalle.finalpfg.adapters.BTDeviceAdapter;
@@ -32,7 +27,7 @@ import es.dlacalle.finalpfg.adapters.BTDeviceAdapter;
 public class BluetoothActivity extends AppCompatActivity {
 
     private String NAME = "FinalPFG_BT_Service";
-    private UUID MY_UUID = UUID.fromString("39deed76-872d-4d68-b2fd-b256a4126e18");
+
     private Switch sw_btOnOff;
     private BluetoothAdapter mBTAdapter;
     private Set<BluetoothDevice> pairedDevices;
@@ -72,25 +67,59 @@ public class BluetoothActivity extends AppCompatActivity {
         //ArrayAdapters
         adapterEmparejados = new BTDeviceAdapter(this, listadoEmparejados);
         lv_paired.setAdapter(adapterEmparejados);
+        lv_paired.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                BTDevice clicked = (BTDevice) parent.getItemAtPosition(position);
+                /*Toast.makeText(getBaseContext(),
+                        "Seleccionado: " + clicked.getName() + '\n' + clicked.getAddress(),
+                        Toast.LENGTH_SHORT).show();
+                */
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("result", clicked.getAddress());
+                setResult(RESULT_OK, returnIntent);
+                finish();
+            }
+
+        });
 
         adapterNuevos = new BTDeviceAdapter(this, listadoNuevos);
         lv_new.setAdapter(adapterNuevos);
+        lv_new.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                BTDevice clicked = (BTDevice) parent.getItemAtPosition(position);
+                /* Toast.makeText(getBaseContext(),
+                        "Seleccionado: " + clicked.getName() + '\n' + clicked.getAddress(),
+                        Toast.LENGTH_SHORT).show();
+                        */
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("result", clicked.getAddress());
+                setResult(RESULT_OK, returnIntent);
+                finish();
+            }
+
+        });
 
         //TextView
-        textViewEmparejados = (TextView)findViewById(R.id.tv_paired);
-        textViewNuevos = (TextView)findViewById(R.id.tv_new_devices);
+        textViewEmparejados = (TextView) findViewById(R.id.tv_paired);
+        textViewNuevos = (TextView) findViewById(R.id.tv_new_devices);
         textViewEmparejados.setVisibility(View.INVISIBLE);
         textViewNuevos.setVisibility(View.INVISIBLE);
 
-        progressBarBT = (ProgressBar)findViewById(R.id.progressBarBT);
+        progressBarBT = (ProgressBar) findViewById(R.id.progressBarBT);
         progressBarBT.setVisibility(View.INVISIBLE);
 
         mBTAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBTAdapter == null) BT_AVAILABLE = false;
 
         if (BT_AVAILABLE)
-            if (mBTAdapter.isEnabled())
+            if (mBTAdapter.isEnabled()) {
                 sw_btOnOff.setChecked(true);
+                listarEmparejados(null);
+            }
 
         // Register the BroadcastReceiver
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
@@ -153,21 +182,26 @@ public class BluetoothActivity extends AppCompatActivity {
 
     public void listarEmparejados(View v) {
 
-            pairedDevices = mBTAdapter.getBondedDevices();
+        listadoEmparejados.clear();
+        adapterEmparejados.notifyDataSetChanged();
+        textViewEmparejados.setVisibility(View.VISIBLE);
 
-            //Listado estándar
+        pairedDevices = mBTAdapter.getBondedDevices();
+
+        //Listado estándar
 //            ArrayList<String> list = new ArrayList<>();
 //
 //            for (BluetoothDevice bt : pairedDevices)
 //                list.add(bt.getName() + '\n' + bt.getAddress());
 //            final ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
 
-            //Listado personalizado
-            for (BluetoothDevice bt : pairedDevices)
-                listadoEmparejados.add(new BTDevice(bt.getName(), bt.getAddress(), bt.getBluetoothClass().getMajorDeviceClass()));
-            adapterEmparejados.notifyDataSetChanged();
+        //Listado personalizado
+        for (BluetoothDevice bt : pairedDevices)
+            listadoEmparejados.add(new BTDevice(bt.getName(), bt.getAddress(), bt.getBluetoothClass().getMajorDeviceClass()));
+
+        adapterEmparejados.notifyDataSetChanged();
         int c = adapterEmparejados.getCount();
-        if(c == 0) textViewEmparejados.setVisibility(View.INVISIBLE);
+        if (c == 0) textViewEmparejados.setVisibility(View.INVISIBLE);
         else if (c == 1) textViewEmparejados.setText(c + " dispositivo emparejado:");
         else textViewEmparejados.setText(c + " dispositivos emparejados:");
     }
@@ -208,13 +242,16 @@ public class BluetoothActivity extends AppCompatActivity {
                 // Add the name and address to an array adapter to show in a ListView
                 listadoNuevos.add(new BTDevice(bt.getName(), bt.getAddress(), bt.getBluetoothClass().getMajorDeviceClass()));
                 adapterNuevos.notifyDataSetChanged();
-            } else if(BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)){
+            } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
                 Toast.makeText(getBaseContext(), "Busqueda finalizada", Toast.LENGTH_SHORT).show();
-                if(adapterNuevos.getCount()==0) textViewNuevos.setText("No se encontraron dispositivos");
+                if (adapterNuevos.getCount() == 0)
+                    textViewNuevos.setText("No se encontraron dispositivos");
                 else {
                     int c = adapterNuevos.getCount();
-                    if (c>1) textViewNuevos.setText(adapterNuevos.getCount() + " dispositivos encontrados:");
-                    else textViewNuevos.setText(adapterNuevos.getCount() + " dispositivo encontrado:");
+                    if (c > 1)
+                        textViewNuevos.setText(adapterNuevos.getCount() + " dispositivos encontrados:");
+                    else
+                        textViewNuevos.setText(adapterNuevos.getCount() + " dispositivo encontrado:");
                 }
                 progressBarBT.setVisibility(View.INVISIBLE);
             }

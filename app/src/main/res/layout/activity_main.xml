@@ -1,7 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -15,18 +16,8 @@
             android:adjustViewBounds="true"
             android:baselineAlignBottom="false"
             android:contentDescription="@string/string_preview" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/tv_log_text"
-            android:id="@+id/tv_log"
-            android:textIsSelectable="true"
-            android:maxLines="10"
-            android:scrollbars="vertical"
-            android:visibility="invisible" />
-
     </FrameLayout>
+
     <ListView
         android:id="@android:id/list"
         android:layout_width="wrap_content"
@@ -36,6 +27,7 @@
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
+
 
         </FrameLayout>
 

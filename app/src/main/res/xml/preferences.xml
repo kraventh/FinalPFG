@@ -2,6 +2,11 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <Preference
+        android:key="test_comunicaciones"
+        android:title="Test"
+        />
+
+    <Preference
         android:icon="@mipmap/permission"
         android:key="permiso_notificaciones_category_key"
         android:summary="Activar/desactivar el acceso"
@@ -15,7 +20,7 @@
         android:summary="Disponible. Desconectado"
         android:title="Bluetooth">
         <intent
-            android:targetClass="es.dlacalle.finalpfg.bt.BluetoothActivity"
+            android:targetClass="es.dlacalle.finalpfg.connectivity.BluetoothActivity"
             android:targetPackage="es.dlacalle.finalpfg" />
 
     </Preference>

@@ -1,4 +1,4 @@
-package es.dlacalle.finalpfg.bt;
+package es.dlacalle.finalpfg.connectivity;
 
 import android.bluetooth.BluetoothClass;
 

@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".bt.BluetoothActivity"
+            android:name=".connectivity.BluetoothActivity"
             android:label="@string/bluetooth_text"
             android:parentActivityName=".MainActivity">
             <meta-data
