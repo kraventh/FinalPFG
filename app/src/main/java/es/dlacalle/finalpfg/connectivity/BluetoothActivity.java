@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,35 +19,65 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Set;
 
 import es.dlacalle.finalpfg.R;
 import es.dlacalle.finalpfg.adapters.BTDeviceAdapter;
+import es.dlacalle.finalpfg.objects.BTDevice;
 
 public class BluetoothActivity extends AppCompatActivity {
 
+    private static final int REQUEST_ENABLE_BT = 3;
+    private static final int REQUEST_DISCOVERABLE = 4;
+    Boolean BT_AVAILABLE = true;
     private String NAME = "FinalPFG_BT_Service";
-
     private Switch sw_btOnOff;
+    private Switch sw_btVisibility;
     private BluetoothAdapter mBTAdapter;
     private Set<BluetoothDevice> pairedDevices;
     private ListView lv_paired;
     private ListView lv_new;
-
     private ArrayList<BTDevice> listadoEmparejados;
     private ArrayList<BTDevice> listadoNuevos;
-
     private BTDeviceAdapter adapterNuevos;
     private BTDeviceAdapter adapterEmparejados;
-
-    Boolean BT_AVAILABLE = true;
-    int REQUEST_ENABLE_BT = 1;
-
     private TextView textViewEmparejados;
     private TextView textViewNuevos;
 
     private ProgressBar progressBarBT;
+    // Create a BroadcastReceiver for ACTION_FOUND
+    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        public void onReceive(Context context, Intent intent) {
+
+            String action = intent.getAction();
+            // When discovery finds a device
+            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+                // Get the BluetoothDevice object from the Intent
+                BluetoothDevice bt = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                Toast.makeText(getBaseContext(), bt.getName(), Toast.LENGTH_SHORT).show();
+
+                // Add the name and address to an array adapter to show in a ListView
+                listadoNuevos.add(new BTDevice(bt.getName(), bt.getAddress(), bt.getBluetoothClass().getMajorDeviceClass()));
+                adapterNuevos.notifyDataSetChanged();
+            } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
+                Toast.makeText(getBaseContext(), "Busqueda finalizada", Toast.LENGTH_SHORT).show();
+                if (adapterNuevos.getCount() == 0)
+                    textViewNuevos.setText("No se encontraron dispositivos");
+                else {
+                    int c = adapterNuevos.getCount();
+                    if (c > 1)
+                        textViewNuevos.setText(adapterNuevos.getCount() + " dispositivos encontrados:");
+                    else
+                        textViewNuevos.setText(adapterNuevos.getCount() + " dispositivo encontrado:");
+                }
+                progressBarBT.setVisibility(View.INVISIBLE);
+            }
+        }
+    };
+    private CountDownTimer cd_visibility;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +86,7 @@ public class BluetoothActivity extends AppCompatActivity {
 
         //Botones
         sw_btOnOff = (Switch) findViewById(R.id.sw_btOnOff);
+        sw_btVisibility = (Switch) findViewById(R.id.sw_visibility);
 
         //ListView
         lv_paired = (ListView) findViewById(R.id.bt_paired_list);
@@ -119,6 +151,8 @@ public class BluetoothActivity extends AppCompatActivity {
             if (mBTAdapter.isEnabled()) {
                 sw_btOnOff.setChecked(true);
                 listarEmparejados(null);
+                //if (mBTAdapter.getScanMode() != BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE)
+                //    sw_btVisibility.setChecked(true);
             }
 
         // Register the BroadcastReceiver
@@ -163,6 +197,10 @@ public class BluetoothActivity extends AppCompatActivity {
                 }
             } else {
                 mBTAdapter.disable();
+                if (cd_visibility != null) cd_visibility.cancel();
+                sw_btVisibility.setText(R.string.text_bt_visibility);
+                sw_btVisibility.setChecked(false);
+
             }
         else {
             sw_btOnOff.setChecked(false);
@@ -170,13 +208,56 @@ public class BluetoothActivity extends AppCompatActivity {
         }
     }
 
+    public void enableVisibility(View v) {
+        if (BT_AVAILABLE) {
+            if (!sw_btVisibility.isChecked()) {
+                if (cd_visibility != null) cd_visibility.cancel();
+                sw_btVisibility.setText(R.string.text_bt_visibility);
+            } else {
+                Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+                discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
+                startActivityForResult(discoverableIntent, REQUEST_DISCOVERABLE);
+            }
+        } else {
+            sw_btVisibility.setChecked(false);
+            Toast.makeText(this.getBaseContext(), "Bluetooth not available", Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
-        if (requestCode == REQUEST_ENABLE_BT) {
-            // Make sure the request was successful
-            if (resultCode != RESULT_OK) {
-                sw_btOnOff.setChecked(false);
-            }
+        Toast.makeText(getBaseContext(), "Request: " + requestCode + " -  Result: " + resultCode, Toast.LENGTH_SHORT).show();
+
+        switch (requestCode) {
+            case REQUEST_ENABLE_BT:
+                // Make sure the request was successful
+                if (resultCode != RESULT_OK) {
+                    sw_btOnOff.setChecked(false);
+                }
+                break;
+            case REQUEST_DISCOVERABLE:
+                // Aqui en resultCode tenemos los segundos que permanecerá visible
+                if (resultCode != RESULT_CANCELED) {
+                    //Marcamos el switch de encendido si es que no lo estaba
+                    if (!sw_btOnOff.isChecked()) sw_btOnOff.setChecked(true);
+                    //Creamos el contador
+                    cd_visibility = new CountDownTimer(resultCode * 1000, 1000) {
+
+                        public void onTick(long millisUntilFinished) {
+                            sw_btVisibility.setText(
+                                    "Dispositivo visible (" +
+                                            new SimpleDateFormat("mm:ss", Locale.ENGLISH).format(millisUntilFinished) +
+                                            ")");
+                        }
+
+                        public void onFinish() {
+                            sw_btVisibility.setText(R.string.text_bt_visibility);
+                            sw_btVisibility.setChecked(false);
+                        }
+                    }.start();
+                }
+                break;
         }
     }
 
@@ -227,36 +308,6 @@ public class BluetoothActivity extends AppCompatActivity {
             mBTAdapter.startDiscovery();
         }
     }
-
-    // Create a BroadcastReceiver for ACTION_FOUND
-    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
-        public void onReceive(Context context, Intent intent) {
-
-            String action = intent.getAction();
-            // When discovery finds a device
-            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-                // Get the BluetoothDevice object from the Intent
-                BluetoothDevice bt = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                Toast.makeText(getBaseContext(), bt.getName(), Toast.LENGTH_SHORT).show();
-
-                // Add the name and address to an array adapter to show in a ListView
-                listadoNuevos.add(new BTDevice(bt.getName(), bt.getAddress(), bt.getBluetoothClass().getMajorDeviceClass()));
-                adapterNuevos.notifyDataSetChanged();
-            } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
-                Toast.makeText(getBaseContext(), "Busqueda finalizada", Toast.LENGTH_SHORT).show();
-                if (adapterNuevos.getCount() == 0)
-                    textViewNuevos.setText("No se encontraron dispositivos");
-                else {
-                    int c = adapterNuevos.getCount();
-                    if (c > 1)
-                        textViewNuevos.setText(adapterNuevos.getCount() + " dispositivos encontrados:");
-                    else
-                        textViewNuevos.setText(adapterNuevos.getCount() + " dispositivo encontrado:");
-                }
-                progressBarBT.setVisibility(View.INVISIBLE);
-            }
-        }
-    };
 
     @Override
     protected void onDestroy() {

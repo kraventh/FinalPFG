@@ -49,13 +49,4 @@
 
     </PreferenceScreen>
 
-    <EditTextPreference
-        android:defaultValue="pfg.log"
-        android:dialogTitle="Nombre del archivo"
-        android:icon="@mipmap/savelog"
-        android:key="save_log"
-        android:negativeButtonText="Cancelar"
-        android:positiveButtonText="Guardar"
-        android:title="Guardar LOG"/>
-
 </PreferenceScreen>

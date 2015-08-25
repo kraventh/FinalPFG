@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <ImageView
+        android:id="@+id/appRowIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:contentDescription="@string/text_icono_app"
+        android:padding="5dp"
+        android:src="@mipmap/app" />
+
+    <TextView
+        android:id="@+id/appRowName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/appRowIcon"
+        android:text="@string/text_app_name" />
+
+    <TextView
+        android:id="@+id/appRowPackage"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appRowName"
+        android:layout_toRightOf="@id/appRowIcon"
+        android:text="@string/text_app_package" />
+
+</RelativeLayout>

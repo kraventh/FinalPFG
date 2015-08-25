@@ -1,12 +1,9 @@
-package es.dlacalle.finalpfg.connectivity;
+package es.dlacalle.finalpfg.objects;
 
 import android.bluetooth.BluetoothClass;
 
 import es.dlacalle.finalpfg.R;
 
-/**
- * Created by Pedro on 09/08/2015.
- */
 public class BTDevice {
     private String name;
     private String address;

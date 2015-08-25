@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import es.dlacalle.finalpfg.R;
-import es.dlacalle.finalpfg.connectivity.BTDevice;
+import es.dlacalle.finalpfg.objects.BTDevice;
 
 public class BTDeviceAdapter extends BaseAdapter {
 

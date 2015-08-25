@@ -4,12 +4,9 @@
     <string name="action_settings">Settings</string>
 
 <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="string_preview">Preview</string>
     <string name="tv_log_text">Log de notificaciones capturadas</string>
-    <string name="title_activity_bluetooth">BluetoothActivity</string>
     <string name="bluetooth_text">Bluetooth</string>
-    <string name="text_on">Encender</string>
     <string name="text_visible">Hacer visible</string>
     <string name="text_list_devices">Listar dispositivos</string>
     <string name="text_off">Apagar</string>
@@ -23,7 +20,14 @@
     <string name="text_nuevos_dispositivos">Dispositivos encontrados:</string>
     <string name="text_action_bt_buscar">Buscar dispositivos</string>
     <string name="title_connected_to">Conectado a</string>
-    <string name="title_connecting">Conectando...</string>
+    <string name="title_connecting">Conectando…</string>
     <string name="title_not_connected">No conectado</string>
     <string name="tv_log_default">RealTime Log</string>
+    <string name="text_bt_visibility">Hacer dispositivo visible </string>
+    <string name="text_vaciar_log">Vaciar LOG</string>
+    <string name="text_action_save_log">Guardar LOG</string>
+    <string name="text_icono_app">Icono App</string>
+    <string name="text_app_name">Nombre App</string>
+    <string name="text_app_package">Paquete App</string>
+    <string name="title_activity_app_row">AppRowActivity</string>
 </resources>

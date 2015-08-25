@@ -10,7 +10,7 @@
 
     <Preference
         android:dependency="habilitar_historico_notificaciones"
-        android:key="limpiar_historico_notif"
+        android:key="limpiar_log"
         android:summary="Pulsa para vaciar"
         android:title="Caché de notificaciones" />
 
