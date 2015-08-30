@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:descendantFocusability="blocksDescendants">
 
     <ImageView
         android:id="@+id/appRowIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="false"
         android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:adjustViewBounds="false"
         android:contentDescription="@string/text_icono_app"
         android:padding="5dp"
         android:src="@mipmap/app" />
@@ -16,7 +21,8 @@
         android:id="@+id/appRowName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toLeftOf="@+id/appRowCheck"
         android:layout_toRightOf="@id/appRowIcon"
         android:text="@string/text_app_name" />
 
@@ -25,7 +31,19 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/appRowName"
+        android:layout_marginBottom="5dp"
+        android:layout_toLeftOf="@+id/appRowCheck"
         android:layout_toRightOf="@id/appRowIcon"
         android:text="@string/text_app_package" />
+
+    <CheckBox
+        android:id="@+id/appRowCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:checked="false"
+        android:clickable="false" />
 
 </RelativeLayout>

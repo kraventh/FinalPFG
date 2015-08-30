@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.annotation.Nullable;
@@ -45,6 +47,7 @@ public class MainFragment extends PreferenceFragment {
     private BTService mBTService = null;
 
     private ActionBar actionBar = null;
+
     /**
      * The Handler that gets information back from the BluetoothChatService
      * Solución al problema memory leak del handler, tan sencillo como cambiar
@@ -71,7 +74,9 @@ public class MainFragment extends PreferenceFragment {
                         case BTService.STATE_NONE:
                             try {
                                 setStatus(R.string.title_not_connected);
-                                mListener.onMainFragmentInteraction(getString(R.string.title_not_connected));
+                                if (isAdded()) {
+                                    mListener.onMainFragmentInteraction(getString(R.string.title_not_connected));
+                                }
                             } catch (NullPointerException ne) {
                                 Log.e(TAG, "NullPointerException setStatus-Handler");
                             }
@@ -162,6 +167,7 @@ public class MainFragment extends PreferenceFragment {
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         setStatus(R.string.title_not_connected);
+        setMonApp();
 
     }
 
@@ -215,6 +221,7 @@ public class MainFragment extends PreferenceFragment {
             }
         }
     }
+
 
     /**
      * Set up the UI and background operations for bt.
@@ -276,6 +283,21 @@ public class MainFragment extends PreferenceFragment {
         BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
         // Attempt to connect to the device
         mBTService.connect(device, secure);
+
+    }
+
+    public void setMonApp() {
+
+        Preference pref = findPreference("app_monitorizada");
+        pref.setTitle(((EditTextPreference) findPreference("app_monitorizada_titulo")).getText());
+        pref.setSummary(((EditTextPreference) findPreference("app_monitorizada_paquete")).getText());
+        if (!pref.getTitle().equals("App no seleccionada")) {
+            try {
+                pref.setIcon(getActivity().getPackageManager().getApplicationIcon(pref.getSummary().toString()));
+            } catch (PackageManager.NameNotFoundException e) {
+                Log.e(TAG, "setMonApp - Invalid Package Name");
+            }
+        }
 
     }
 

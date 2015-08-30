@@ -2,6 +2,7 @@ package es.dlacalle.finalpfg;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
@@ -22,8 +23,6 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.Locale;
-import java.util.UUID;
 
 
 public class MainActivity extends AppCompatActivity implements
@@ -33,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements
     private static final String TAG = "MainActivity";
     private static final int MENU_MAIN = 0;
     private static final int MENU_LOG = 1;
-    public static UUID MY_UUID = UUID.fromString("39deed76-872d-4d68-b2fd-b256a4126e18");
     SectionsPagerAdapter mSectionsPagerAdapter;
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -104,6 +102,10 @@ public class MainActivity extends AppCompatActivity implements
             case R.id.action_save_log:
                 saveLog();
                 return true;
+            case R.id.action_settings_prefs:
+                Intent applist = new Intent(this, AppRowActivity.class);
+                startActivity(applist);
+                return true;
             default:
                 break;
         }
@@ -139,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements
             final EditText input = new EditText(this);
             input.setText(filename);
 
-            AlertDialog savefile = new AlertDialog.Builder(this)
+            new AlertDialog.Builder(this)
                     .setTitle("Nombre del archivo: ") //titulo
                     .setView(input) //añado el edittext
                     .setPositiveButton("Guardar", new DialogInterface.OnClickListener() { //
@@ -277,19 +279,6 @@ public class MainActivity extends AppCompatActivity implements
         public int getCount() {
             // Show 3 total pages.
             return 2;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            Locale l = Locale.getDefault();
-            switch (position) {
-                case 0:
-                    return "FinalPFG";
-                case 1:
-                    return "FinalPFG Log";
-
-            }
-            return null;
         }
     }
 

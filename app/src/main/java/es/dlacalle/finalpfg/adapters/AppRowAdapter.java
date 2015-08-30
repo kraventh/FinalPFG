@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,22 +41,24 @@ public class AppRowAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        AppRowView btDeviceView;
+        AppRowView appRowView;
 
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.lista_approw, null);
-            btDeviceView = new AppRowView();
-            btDeviceView.appName = (TextView) convertView.findViewById(R.id.appRowName);
-            btDeviceView.appPackage = (TextView) convertView.findViewById(R.id.appRowPackage);
-            btDeviceView.appIcon = (ImageView) convertView.findViewById(R.id.appRowIcon);
+            appRowView = new AppRowView();
+            appRowView.appName = (TextView) convertView.findViewById(R.id.appRowName);
+            appRowView.appPackage = (TextView) convertView.findViewById(R.id.appRowPackage);
+            appRowView.appIcon = (ImageView) convertView.findViewById(R.id.appRowIcon);
+            appRowView.appChecked = (CheckBox) convertView.findViewById(R.id.appRowCheck);
 
-            convertView.setTag(btDeviceView);
-        } else btDeviceView = (AppRowView) convertView.getTag();
+            convertView.setTag(appRowView);
+        } else appRowView = (AppRowView) convertView.getTag();
 
-        AppRow device = (AppRow) getItem(position);
-        btDeviceView.appName.setText(device.getName());
-        btDeviceView.appPackage.setText(device.getApp_package());
-        btDeviceView.appIcon.setImageDrawable(device.getIcon());
+        AppRow app = (AppRow) getItem(position);
+        appRowView.appName.setText(app.getName());
+        appRowView.appPackage.setText(app.getApp_package());
+        appRowView.appIcon.setImageDrawable(app.getIcon());
+        appRowView.appChecked.setChecked(app.isChecked());
         return convertView;
     }
 
@@ -63,5 +66,6 @@ public class AppRowAdapter extends BaseAdapter {
         TextView appName;
         TextView appPackage;
         ImageView appIcon;
+        CheckBox appChecked;
     }
 }

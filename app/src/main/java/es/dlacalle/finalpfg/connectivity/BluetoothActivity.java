@@ -30,14 +30,13 @@ import es.dlacalle.finalpfg.objects.BTDevice;
 
 public class BluetoothActivity extends AppCompatActivity {
 
+    private static final String TAG = "BluetoothActivity";
     private static final int REQUEST_ENABLE_BT = 3;
     private static final int REQUEST_DISCOVERABLE = 4;
     Boolean BT_AVAILABLE = true;
-    private String NAME = "FinalPFG_BT_Service";
     private Switch sw_btOnOff;
     private Switch sw_btVisibility;
     private BluetoothAdapter mBTAdapter;
-    private Set<BluetoothDevice> pairedDevices;
     private ListView lv_paired;
     private ListView lv_new;
     private ArrayList<BTDevice> listadoEmparejados;
@@ -57,7 +56,7 @@ public class BluetoothActivity extends AppCompatActivity {
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 // Get the BluetoothDevice object from the Intent
                 BluetoothDevice bt = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                Toast.makeText(getBaseContext(), bt.getName(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getBaseContext(), bt.getName(), Toast.LENGTH_SHORT).show();
 
                 // Add the name and address to an array adapter to show in a ListView
                 listadoNuevos.add(new BTDevice(bt.getName(), bt.getAddress(), bt.getBluetoothClass().getMajorDeviceClass()));
@@ -77,6 +76,7 @@ public class BluetoothActivity extends AppCompatActivity {
             }
         }
     };
+
     private CountDownTimer cd_visibility;
 
     @Override
@@ -267,14 +267,7 @@ public class BluetoothActivity extends AppCompatActivity {
         adapterEmparejados.notifyDataSetChanged();
         textViewEmparejados.setVisibility(View.VISIBLE);
 
-        pairedDevices = mBTAdapter.getBondedDevices();
-
-        //Listado estándar
-//            ArrayList<String> list = new ArrayList<>();
-//
-//            for (BluetoothDevice bt : pairedDevices)
-//                list.add(bt.getName() + '\n' + bt.getAddress());
-//            final ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
+        Set<BluetoothDevice> pairedDevices = mBTAdapter.getBondedDevices();
 
         //Listado personalizado
         for (BluetoothDevice bt : pairedDevices)

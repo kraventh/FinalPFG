@@ -5,19 +5,19 @@
     <CheckBoxPreference
         android:defaultValue="true"
         android:key="habilitar_historico_notificaciones"
+        android:persistent="true"
         android:summary="Habilitado por defecto"
         android:title="Histórico de notificaciones" />
-
-    <Preference
-        android:dependency="habilitar_historico_notificaciones"
-        android:key="limpiar_log"
-        android:summary="Pulsa para vaciar"
-        android:title="Caché de notificaciones" />
 
     <CheckBoxPreference
         android:defaultValue="false"
         android:key="mostrar_notif_desestimadas"
+        android:persistent="true"
         android:summary="O sólo Aplicacion Monitorizada"
         android:title="Mostrar todas" />
-
+    <EditTextPreference
+        android:defaultValue="whatsapp\nmaps"
+        android:key="app_filter"
+        android:persistent="true"
+        android:title="Aplicaciones a filtrar" />
 </PreferenceScreen>

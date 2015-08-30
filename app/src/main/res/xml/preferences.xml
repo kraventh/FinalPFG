@@ -3,12 +3,14 @@
 
     <Preference
         android:key="test_comunicaciones"
+        android:persistent="true"
         android:title="Test"
         />
 
     <Preference
         android:icon="@mipmap/permission"
         android:key="permiso_notificaciones_category_key"
+        android:persistent="true"
         android:summary="Activar/desactivar el acceso"
         android:title="Permiso Notificaciones">
         <intent android:action="android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS" />
@@ -17,6 +19,7 @@
     <Preference
         android:icon="@mipmap/bluetooth"
         android:key="bluetooth_category_key"
+        android:persistent="true"
         android:summary="Disponible. Desconectado"
         android:title="Bluetooth">
         <intent
@@ -28,25 +31,57 @@
     <PreferenceScreen
         android:icon="@mipmap/app"
         android:key="app_monitorizada"
+        android:persistent="true"
         android:summary="No se monitoriza ninguna aplicación"
         android:title="App no seleccionada">
+        <EditTextPreference
+            android:defaultValue="Ninguna"
+            android:editable="false"
+            android:key="app_monitorizada_titulo"
+            android:persistent="true"
+            android:title="Título" />
+        <EditTextPreference
+            android:defaultValue="No hay aplicación seleccionada"
+            android:editable="false"
+            android:key="app_monitorizada_paquete"
+            android:persistent="true"
+            android:title="Paquete" />
         <intent
-            android:targetClass="es.dlacalle.finalpfg.SettingsActivity"
-            android:targetPackage="es.dlacalle.finalpfg">
-            <extra android:name="setting" android:value="app" />
-        </intent>
+            android:targetClass="es.dlacalle.finalpfg.AppRowActivity"
+            android:targetPackage="es.dlacalle.finalpfg" />
     </PreferenceScreen>
 
-    <PreferenceScreen
+    <Preference
         android:icon="@mipmap/settings"
+        android:key="configuracion_prefscreen"
+        android:persistent="true"
         android:summary="Display, Notificaciones, GPS..."
         android:title="Configuración">
+        <!--<CheckBoxPreference-->
+        <!--android:defaultValue="true"-->
+        <!--android:key="habilitar_historico_notificaciones"-->
+        <!--android:summary="Habilitado por defecto"-->
+        <!--android:title="Histórico de notificaciones"-->
+        <!--android:persistent="true"/>-->
+
+        <!--<CheckBoxPreference-->
+        <!--android:defaultValue="false"-->
+        <!--android:key="mostrar_notif_desestimadas"-->
+        <!--android:summary="O sólo Aplicacion Monitorizada"-->
+        <!--android:title="Mostrar todas"-->
+        <!--android:persistent="true" />-->
+        <!--<EditTextPreference-->
+        <!--android:defaultValue="whatsapp\nmaps"-->
+        <!--android:key="app_filter"-->
+        <!--android:title="Aplicaciones a filtrar"-->
+        <!--android:persistent="true"-->
+        <!--/>-->
         <intent
             android:targetClass="es.dlacalle.finalpfg.SettingsActivity"
             android:targetPackage="es.dlacalle.finalpfg">
             <extra android:name="setting" android:value="config" />
         </intent>
 
-    </PreferenceScreen>
+    </Preference>
 
 </PreferenceScreen>

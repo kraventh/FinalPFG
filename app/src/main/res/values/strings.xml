@@ -29,5 +29,9 @@
     <string name="text_icono_app">Icono App</string>
     <string name="text_app_name">Nombre App</string>
     <string name="text_app_package">Paquete App</string>
-    <string name="title_activity_app_row">AppRowActivity</string>
+    <string name="title_activity_app_row">Selecciona App</string>
+    <string name="action_save_app">Guardar</string>
+    <string name="text_app_installed">Listar Apps</string>
+    <string name="ib_toggle_app_installed">Desplegar listado</string>
+    <string name="text_b_filtro">Filtrar</string>
 </resources>
