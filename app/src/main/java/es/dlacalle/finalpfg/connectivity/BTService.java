@@ -58,8 +58,9 @@ public class BTService {
     private static final String NAME_SECURE = "BluetoothChatSecure";
     private static final String NAME_INSECURE = "BluetoothChatInsecure";
     // Unique UUID for this application
+    /* Para conectar con arduino la UUID debe ser esta, de lo contrario no pedirá el PIN */
     private static final UUID MY_UUID_SECURE =
-            UUID.fromString("d562a5bb-462d-492a-8265-732ea24e7164");
+            UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private static final UUID MY_UUID_INSECURE =
             UUID.fromString("43ffd7a0-acde-4a02-980a-da314eb4131b");
     // Member fields
