@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,15 +25,16 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Set;
 
+import es.dlacalle.finalpfg.Constants;
 import es.dlacalle.finalpfg.R;
 import es.dlacalle.finalpfg.adapters.BTDeviceAdapter;
 import es.dlacalle.finalpfg.objects.BTDevice;
 
 public class BluetoothActivity extends AppCompatActivity {
 
-    private static final String TAG = "BluetoothActivity";
-    private static final int REQUEST_ENABLE_BT = 3;
-    private static final int REQUEST_DISCOVERABLE = 4;
+    private static final String TAG = "FinalPFG_BT";
+
+
     Boolean BT_AVAILABLE = true;
     private Switch sw_btOnOff;
     private Switch sw_btVisibility;
@@ -193,7 +195,7 @@ public class BluetoothActivity extends AppCompatActivity {
             if (sw_btOnOff.isChecked()) {
                 if (!mBTAdapter.isEnabled()) {
                     Intent turnOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                    startActivityForResult(turnOn, REQUEST_ENABLE_BT);
+                    startActivityForResult(turnOn, Constants.REQUEST_ENABLE_BT);
                 }
             } else {
                 mBTAdapter.disable();
@@ -216,7 +218,7 @@ public class BluetoothActivity extends AppCompatActivity {
             } else {
                 Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
                 discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
-                startActivityForResult(discoverableIntent, REQUEST_DISCOVERABLE);
+                startActivityForResult(discoverableIntent, Constants.REQUEST_DISCOVERABLE);
             }
         } else {
             sw_btVisibility.setChecked(false);
@@ -227,16 +229,16 @@ public class BluetoothActivity extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
-        Toast.makeText(getBaseContext(), "Request: " + requestCode + " -  Result: " + resultCode, Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "Request: " + requestCode + " -  Result: " + resultCode);
 
         switch (requestCode) {
-            case REQUEST_ENABLE_BT:
+            case Constants.REQUEST_ENABLE_BT:
                 // Make sure the request was successful
                 if (resultCode != RESULT_OK) {
                     sw_btOnOff.setChecked(false);
                 }
                 break;
-            case REQUEST_DISCOVERABLE:
+            case Constants.REQUEST_DISCOVERABLE:
                 // Aqui en resultCode tenemos los segundos que permanecerá visible
                 if (resultCode != RESULT_CANCELED) {
                     //Marcamos el switch de encendido si es que no lo estaba

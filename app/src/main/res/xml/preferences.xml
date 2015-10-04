@@ -2,6 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <Preference
+        android:icon = "@mipmap/ic_menu_test"
         android:key="test_comunicaciones"
         android:persistent="true"
         android:title="Test"
@@ -57,25 +58,7 @@
         android:persistent="true"
         android:summary="Display, Notificaciones, GPS..."
         android:title="Configuración">
-        <!--<CheckBoxPreference-->
-        <!--android:defaultValue="true"-->
-        <!--android:key="habilitar_historico_notificaciones"-->
-        <!--android:summary="Habilitado por defecto"-->
-        <!--android:title="Histórico de notificaciones"-->
-        <!--android:persistent="true"/>-->
 
-        <!--<CheckBoxPreference-->
-        <!--android:defaultValue="false"-->
-        <!--android:key="mostrar_notif_desestimadas"-->
-        <!--android:summary="O sólo Aplicacion Monitorizada"-->
-        <!--android:title="Mostrar todas"-->
-        <!--android:persistent="true" />-->
-        <!--<EditTextPreference-->
-        <!--android:defaultValue="whatsapp\nmaps"-->
-        <!--android:key="app_filter"-->
-        <!--android:title="Aplicaciones a filtrar"-->
-        <!--android:persistent="true"-->
-        <!--/>-->
         <intent
             android:targetClass="es.dlacalle.finalpfg.SettingsActivity"
             android:targetPackage="es.dlacalle.finalpfg">

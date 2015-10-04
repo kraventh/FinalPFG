@@ -34,4 +34,5 @@
     <string name="text_app_installed">Listar Apps</string>
     <string name="ib_toggle_app_installed">Desplegar listado</string>
     <string name="text_b_filtro">Filtrar</string>
+    <string name="title_activity_notification_activity_test">NotificationActivityTest</string>
 </resources>

@@ -1,4 +1,4 @@
-package es.dlacalle.finalpfg.connectivity;
+package es.dlacalle.finalpfg.services;
 /*
  * Copyright (C) 2014 The Android Open Source Project
  *

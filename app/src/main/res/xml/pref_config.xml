@@ -2,22 +2,67 @@
     android:icon="@mipmap/settings"
     android:summary="Display, Notificaciones, GPS..."
     android:title="Configuración">
-    <CheckBoxPreference
-        android:defaultValue="true"
-        android:key="habilitar_historico_notificaciones"
-        android:persistent="true"
-        android:summary="Habilitado por defecto"
-        android:title="Histórico de notificaciones" />
+    <PreferenceCategory
+        android:key="notificaciones_category"
+        android:title="Notificaciones">
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="enviar_notificaciones"
+            android:persistent="true"
+            android:summary="Habilita el envío de las notificaciones al dispositivo externo"
+            android:title="Enviar notificaciones" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="habilitar_historico_notificaciones"
+            android:persistent="true"
+            android:summary="Agrega al Log las notificaciones procesadas"
+            android:title="Histórico de notificaciones" />
 
-    <CheckBoxPreference
-        android:defaultValue="false"
-        android:key="mostrar_notif_desestimadas"
-        android:persistent="true"
-        android:summary="O sólo Aplicacion Monitorizada"
-        android:title="Mostrar todas" />
-    <EditTextPreference
-        android:defaultValue="whatsapp\nmaps"
-        android:key="app_filter"
-        android:persistent="true"
-        android:title="Aplicaciones a filtrar" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="gps_category"
+        android:title="GPS">
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="activar_gps"
+            android:persistent="true"
+            android:summary="Muestra Velocidad GPS en dispositivo externo"
+            android:title="Activar GPS" />
+        <EditTextPreference
+            android:defaultValue="1000"
+            android:dependency="activar_gps"
+            android:key="frecuencia_gps"
+            android:persistent="true"
+            android:summary="A menor valor, mayor consumo"
+            android:title="Frecuencia de actualización" />
+        <EditTextPreference
+            android:defaultValue="10"
+            android:dependency="activar_gps"
+            android:key="distancia_gps"
+            android:persistent="true"
+            android:summary="A menor valor, mayor consumo"
+            android:title="Distancia mínima de actualización" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="apps_category"
+        android:title="Apps">
+
+        <EditTextPreference
+            android:defaultValue="whatsapp\nmaps"
+            android:key="app_filter"
+            android:persistent="true"
+            android:title="Aplicaciones a filtrar" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="debug_category"
+        android:title="Debug">
+    <CheckBoxPreference android:defaultValue="false"
+        android:title="Activar opción Test"
+        android:key="enable_debug"
+        android:summary="Añade la opción Test al menú principal"
+        />
+    </PreferenceCategory>
+
 </PreferenceScreen>

@@ -1,10 +1,15 @@
 package es.dlacalle.finalpfg;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -24,6 +29,10 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileOutputStream;
 
+//Tramas:
+//  datos aplicación: maps;tipo_grafico;distancia_cambio;via_actual;via_siguiente;distancia_total;tiempo_total;hora_llegada
+//  datos sistema:  sistema;estado_gps;estado_cobertura;hora
+
 
 public class MainActivity extends AppCompatActivity implements
         LogFragment.OnFragmentInteractionListener, MainFragment.OnFragmentInteractionListener {
@@ -33,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements
     private static final int MENU_MAIN = 0;
     private static final int MENU_LOG = 1;
     SectionsPagerAdapter mSectionsPagerAdapter;
+    MainFragment mFrag;
+
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -40,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements
     private Menu menu;
     //Otras variables
     private String filename = ""; //Para el nombre del LOG
+
+    //private NotificationReceiver notificationReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +95,15 @@ public class MainActivity extends AppCompatActivity implements
             }
         });
 
+//        notificationReceiver = new NotificationReceiver();
+//        IntentFilter filter = new IntentFilter();
+//        filter.addAction("es.dlacalle.finalpfg.NOTIFICATION_LISTENER_FINALPFG");
+//        registerReceiver(notificationReceiver, filter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     @Override
@@ -102,10 +124,7 @@ public class MainActivity extends AppCompatActivity implements
             case R.id.action_save_log:
                 saveLog();
                 return true;
-            case R.id.action_settings_prefs:
-                Intent applist = new Intent(this, AppRowActivity.class);
-                startActivity(applist);
-                return true;
+
             default:
                 break;
         }
@@ -117,12 +136,10 @@ public class MainActivity extends AppCompatActivity implements
             case MENU_MAIN:
                 menu.findItem(R.id.action_empty_log).setVisible(false);
                 menu.findItem(R.id.action_save_log).setVisible(false);
-                menu.findItem(R.id.action_settings_prefs).setVisible(true);
                 break;
             case MENU_LOG:
                 menu.findItem(R.id.action_empty_log).setVisible(true);
                 menu.findItem(R.id.action_save_log).setVisible(true);
-                menu.findItem(R.id.action_settings_prefs).setVisible(false);
                 break;
         }
     }
@@ -209,8 +226,6 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
-    /* Checks if external storage is available for read and write */
-
     public void onMainFragmentInteraction(String string) {
         onLogInteraction(string, LogFragment.APPEND);
     }
@@ -281,5 +296,6 @@ public class MainActivity extends AppCompatActivity implements
             return 2;
         }
     }
+
 
 }
