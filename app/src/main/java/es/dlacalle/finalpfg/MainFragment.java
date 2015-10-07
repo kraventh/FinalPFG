@@ -82,7 +82,7 @@ public class MainFragment extends PreferenceFragment {
             Activity activity = getActivity();
             Preference bt = findPreference("bluetooth_category_key");
             switch (msg.what) {
-                case BTService.MESSAGE_STATE_CHANGE:
+                case Constants.MESSAGE_STATE_CHANGE:
                     switch (msg.arg1) {
                         case BTService.STATE_CONNECTED:
                             setStatus(getString(R.string.title_connected_to) + " " + mConnectedDeviceName);
@@ -108,21 +108,21 @@ public class MainFragment extends PreferenceFragment {
                             break;
                     }
                     break;
-                case BTService.MESSAGE_WRITE:
+                case Constants.MESSAGE_WRITE:
                     byte[] writeBuf = (byte[]) msg.obj;
                     // construct a string from the buffer
                     String writeMessage = new String(writeBuf);
                     mListener.onMainFragmentInteraction("MESSAGE_WRITE - " + writeMessage);
                     //Toast.makeText(getActivity(), "MESSAGE_WRITE", Toast.LENGTH_SHORT).show();
                     break;
-                case BTService.MESSAGE_READ:
+                case Constants.MESSAGE_READ:
                     byte[] readBuf = (byte[]) msg.obj;
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1);
                     mListener.onMainFragmentInteraction("MESSAGE_READ - " + readMessage);
                     //Toast.makeText(getActivity(), "MESSAGE_READ\n"+readMessage, Toast.LENGTH_SHORT).show();
                     break;
-                case BTService.MESSAGE_DEVICE_NAME:
+                case Constants.MESSAGE_DEVICE_NAME:
                     // save the connected device's name
                     mConnectedDeviceName = msg.getData().getString(BTService.DEVICE_NAME);
                     if (null != activity) {
@@ -132,7 +132,7 @@ public class MainFragment extends PreferenceFragment {
                                 Toast.LENGTH_SHORT).show();
                     }
                     break;
-                case BTService.MESSAGE_TOAST:
+                case Constants.MESSAGE_TOAST:
                     if (null != activity) {
                         mListener.onMainFragmentInteraction(msg.getData().getString(BTService.TOAST));
                         Toast.makeText(activity, msg.getData().getString(BTService.TOAST),
@@ -172,7 +172,7 @@ public class MainFragment extends PreferenceFragment {
         bt.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                startActivityForResult(preference.getIntent(), MainActivity.BT_DEVICE_TO_CONNECT);
+                startActivityForResult(preference.getIntent(), Constants.BT_DEVICE_TO_CONNECT);
                 return true;
             }
         });
@@ -329,7 +329,7 @@ public class MainFragment extends PreferenceFragment {
     @Override
     public void onActivityResult(int reqCode, int resCode, Intent data) {
         if (data != null) {
-            if (reqCode == MainActivity.BT_DEVICE_TO_CONNECT) {
+            if (reqCode == Constants.BT_DEVICE_TO_CONNECT) {
             /* Conexion Segura */
                 connectDevice(data, true);
             }

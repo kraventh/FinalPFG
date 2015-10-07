@@ -1,15 +1,9 @@
 package es.dlacalle.finalpfg;
 
 import android.app.AlertDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -37,12 +31,10 @@ import java.io.FileOutputStream;
 public class MainActivity extends AppCompatActivity implements
         LogFragment.OnFragmentInteractionListener, MainFragment.OnFragmentInteractionListener {
 
-    public static final int BT_DEVICE_TO_CONNECT = 1234;
     private static final String TAG = "MainActivity";
     private static final int MENU_MAIN = 0;
     private static final int MENU_LOG = 1;
     SectionsPagerAdapter mSectionsPagerAdapter;
-    MainFragment mFrag;
 
     /**
      * The {@link ViewPager} that will host the section contents.
